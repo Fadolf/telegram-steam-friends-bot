@@ -1,18 +1,11 @@
 'use strict';
 require('jasmine-expect');
 
-var Command = require('../modules/telegramcommand.js');
+var Command = require('../modules/telegram-command.js');
 
 describe('TelegramCommand', function(){
 
-  let parameter = {
-      pattern: 'blabla',
-      callback: function(msg, match){
-        return 2;
-      }
-  };
-
-  let c = new Command(parameter);
+  let c = new Command('test');
   
 
   it('should create an instance of TelegramCommand when imported', function(){
