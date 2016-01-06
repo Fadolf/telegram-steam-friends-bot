@@ -14,12 +14,20 @@ describe('TelegramMiddleware', function() {
     expect(tmw.constructor.name).toEqual('TelegramMiddleware');
   });
 
-
-
   it('should have a bot property', function(){
     expect(tmw.bot).not.toBeNull();
     expect(tmw.bot).toBeDefined();
     expect(typeof(tmw.bot)).toEqual('object');
-
   });
+
+  it('should have a callback for sending messages', function(){
+    expect(tmw.sendMessageCallback).toBeDefined();
+    expect(typeof(tmw.sendMessageCallback)).toEqual('function');
+  });
+
+  it('should have a method for registering commands', function(){
+    expect(tmw.registerCommand).toBeDefined();
+    expect(typeof(tmw.registerCommand)).toEqual('function');
+  });
+
 });

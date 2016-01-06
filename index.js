@@ -1,5 +1,5 @@
 var request = require('request');
-
+var config = require('./config/config.js');
 
 function callback(info)
 {
@@ -10,8 +10,8 @@ function callback(info)
 	}
 }
 
-var Steam = require(__dirname+'/modules/steam.js').create();
-Steam.getOnlineFriends('76561198043887092',callback);
+//var Steam = require(__dirname+'/modules/steam.js').create();
+//Steam.getOnlineFriends('76561198043887092',callback);
 
 
 

@@ -1,7 +1,7 @@
 'use strict';
 
 let config = {
-  tokenBot: '',
+  telegramToken: '',
   steamAPIKey: '',
   webhook: '',
   certs: []

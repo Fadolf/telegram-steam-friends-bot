@@ -18,7 +18,7 @@ function filterOnline(info)
 		return false;
 }
 
-
+let instance = null;
 
 //CLASS DEFINITION
 //============================================================
@@ -30,6 +30,11 @@ class Steam{
 		this.apiCalls = 0;
 		this.url_template = "http://api.steampowered.com/{interface}/{service}/{version}/"; 
 		this.rooms = [];
+
+		if(!instance)
+			instance = this;
+
+		return instance;
 	}
 
 	init()
@@ -122,8 +127,4 @@ class Steam{
 	}
 }
 
-exports.create = function(parameters)
-{
-
-	return new Steam(parameters);
-}
+module.exports = Steam;

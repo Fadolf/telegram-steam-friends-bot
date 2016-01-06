@@ -1,6 +1,8 @@
 'use strict';
 
-class Command
+var telegram = require("./telegram-middleware").create();
+
+class TelegramCommand
 {
   constructor(c)
   {
@@ -12,10 +14,11 @@ class Command
     };
 
     this.pattern = input.pattern;
-    this.callback = input.callback; 
+    this.callback = input.callback;
+    this.tmw = telegram;
   }
 };
 
-exports.create = function(parameters){
-  return new Command(parameters);
-}
+
+module.exports = TelegramCommand;
+

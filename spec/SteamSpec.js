@@ -11,7 +11,7 @@ var Steam = require("../modules/steam.js");
 
 describe("Steam",function(){
 
-	var s=Steam.create();
+	var s=new Steam();
 
 	it("should be not null", function(){
 		expect(s).not.toBeNull();

@@ -96,17 +96,11 @@ beforeEach(function(){
 						result.message = 'Expected ' + actual + 'to be a valid path, but '+
 											'it does not exist or is invalid';
 					}
-
-
-
-
 				}
 			};
 
 
-		}		
-
-
+		}
 	};
 
 	//This function registers all matchers to be available in any

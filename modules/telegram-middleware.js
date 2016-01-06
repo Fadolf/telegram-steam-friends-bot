@@ -2,38 +2,31 @@
 
 
 var TelegramBot = require('node-telegram-bot-api');
-/*
-var token = '125446002:AAEm5VEUcuKHN5-Re8aksRPbbfoGeW0tVPk';
-// Setup polling way
-var bot = new TelegramBot(token, {polling: true});
-var availableCommands = ['create_account','delete_account', 'my_account', 'update_account'];
+var config = require('../config/config.js');
 
-// Any kind of message
-bot.on('message', function (msg) {
-  var chatId = msg.chat.id;
-  // photo can be: a file path, a stream or a Telegram file_id
-  bot.sendMessage(chatId, 'no operativo');
-});
-
-availableCommands.forEach(c =>{
-  var p = new RegExp('\/' + c );
-  bot.onText(p, function(msg, match){
-    var fromId = msg.from.id;
-    var resp = match[1];
-    bot.sendMessage(fromId, "Command " + c);
-  });
-});
-
-//bot.sendMessage(-1705596, "No estoy operativo aun... ");
-*/
-
+let instance = null;
 
 
 class TelegramMiddleware
 {
   constructor()
   {
-    this.bot = {};
+    this.bot = new TelegramBot(config.telegramToken, {polling: true});
+
+    if(!instance)
+      instance = this;
+    
+    return instance;
+  }
+
+  sendMessageCallback(to, response)
+  {
+    this.bot.sendMessage(to, response);
+  }
+
+  registerCommand(command)
+  {
+    this.bot.on(command.pattern, command.callback);
   }
 
 }
