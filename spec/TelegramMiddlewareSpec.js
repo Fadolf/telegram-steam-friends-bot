@@ -20,9 +20,9 @@ describe('TelegramMiddleware', function() {
     expect(typeof(tmw.bot)).toEqual('object');
   });
 
-  it('should have a callback for sending messages', function(){
-    expect(tmw.sendMessageCallback).toBeDefined();
-    expect(typeof(tmw.sendMessageCallback)).toEqual('function');
+  it('should have a function for sending messages', function(){
+    expect(tmw.sendMessage).toBeDefined();
+    expect(typeof(tmw.sendMessage)).toEqual('function');
   });
 
   it('should have a method for registering commands', function(){

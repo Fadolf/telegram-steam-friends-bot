@@ -2,31 +2,35 @@
 
 
 var TelegramBot = require('node-telegram-bot-api');
-var config = require('../config/config.js');
+var config = require('../config/config.js').config();
 
 let instance = null;
-
+let bot = new TelegramBot(config.telegramToken, {polling: true});
 
 class TelegramMiddleware
 {
   constructor()
-  {
-    this.bot = new TelegramBot(config.telegramToken, {polling: true});
-
+  {    
     if(!instance)
       instance = this;
     
+    if(this.bot === undefined || !this.bot)
+      this.bot = bot;
+
     return instance;
   }
 
-  sendMessageCallback(to, response)
+  sendMessage(to, response)
   {
+    console.log("Sending message\n\n");
+    console.log("To: " + to);
     this.bot.sendMessage(to, response);
   }
 
   registerCommand(command)
   {
-    this.bot.on(command.pattern, command.callback);
+    console.log("Command registered!");
+    this.bot.onText(command.pattern, command.callback);
   }
 
 }

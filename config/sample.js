@@ -4,7 +4,8 @@ let config = {
   telegramToken: '',
   steamAPIKey: '',
   webhook: '',
-  certs: []
+  certs: [],
+  mongoConnectionString: ''
 };
 
 exports.config = function(){
