@@ -9,7 +9,10 @@ let states = ['Offline', 'Online', 'Busy', 'Away', 'Snooze', 'Looking to trade',
 
 function getPersonaState(stateIndex)
 {
-  return states[stateIndex];
+  if(!stateIndex)
+    return states[stateIndex] + ' (private profile?) ';
+  else
+    return states[stateIndex];  
 }
 
 
@@ -52,6 +55,17 @@ let commands =
     pattern: /\/my_friends_online/,
     callback: function(msg, match)
     {
+
+      if(msg.chat.type === 'group'){
+        var message =  'I am not going to share your friends info here. Type that command '+
+         'in a conversation with me';
+
+        console.log(msg);
+        telegram.sendMessage(msg.chat.id, message, {reply_to_message_id: msg.message_id});
+        return;
+      }
+
+
       mongo.getAccount(msg, function(err, item){
         if(err){
           telegram.sendMessage(msg.from.id, 'Error retrieving your friends');
