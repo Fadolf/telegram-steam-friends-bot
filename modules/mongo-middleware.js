@@ -45,6 +45,14 @@ class MongoMiddleware
         tmiddleware.sendMessage(p.telegramId, 'Account created.');
       }
     });
+  }
+
+  getAccount(msg, callback)
+  {
+    var persona = this.db.collection('persona');
+    persona.findOne({telegramId: msg.from.id}, function(err, item){
+      callback(err, item);
+    });
   }  
 }
 

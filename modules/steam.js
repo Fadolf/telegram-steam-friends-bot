@@ -28,6 +28,7 @@ class Steam{
 	{
 		this.token = config.steamAPIKey;
 		this.apiCalls = 0;
+		this.apiLimit = 100000;
 		this.url_template = "http://api.steampowered.com/{interface}/{service}/{version}/"; 
 		this.rooms = [];
 
@@ -42,8 +43,19 @@ class Steam{
 		checkStorage(this.files_path);
 	}
 
+	resetAPILimit()
+	{
+		this.apiCalls = 0;
+	}
+
+
 	requestFriendsPromise(userid)
 	{
+		if(this.apiCalls >= this.apiLimit)
+		{
+			callback(null);
+		}
+
 		let url = template(this.url_template,
 		{
 			interface: "ISteamUser",
@@ -65,11 +77,18 @@ class Steam{
 			json: true
 		};
 
+		this.apiCalls++;
+
 		return rp(options);
 	}
 
 	requestPlayerSummariesPromise(list)
 	{
+		if(this.apiCalls >= this.apiLimit)
+		{
+			callback(null);
+		}
+
 		let url = template(this.url_template,
 		{
 			interface: "ISteamUser",
@@ -91,11 +110,17 @@ class Steam{
 			json: true
 		};
 
+		this.apiCalls++;
 		return rp(options);
 	}
 
 	getOnlineFriends(id,callback)
 	{
+		if(this.apiCalls >= this.apiLimit)
+		{
+			callback(null);
+		}
+
 		var self = this;
 
 		self.requestFriendsPromise(id)

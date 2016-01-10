@@ -20,11 +20,14 @@ class TelegramMiddleware
     return instance;
   }
 
-  sendMessage(to, response)
+  sendMessage(to, response, options)
   {
     console.log("Sending message\n\n");
     console.log("To: " + to);
-    this.bot.sendMessage(to, response);
+    if(!options || options === undefined)
+      this.bot.sendMessage(to, response);
+    else
+      this.bot.sendMessage(to, response, options);
   }
 
   registerCommand(command)

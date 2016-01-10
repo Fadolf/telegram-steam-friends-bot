@@ -79,7 +79,7 @@ describe("Steam",function(){
 		//This is necessary for testing asynchronous functions
 		it("should get player friends", function(done){
 			var steamID = "76561197960435530",
-					friendCount = 297; //At the moment of testing
+					friendCount = 298; //At the moment of testing
 
 			var testFriendCount = function(friendsResponse)
 			{
@@ -100,5 +100,23 @@ describe("Steam",function(){
 		});
 	});
 
+
+	it('should increment api calls', function() {
+		var steamID = "76561197960435530",
+			calls = s.apiCalls;
+
+		s.requestFriendsPromise(steamID)
+		.then(null)
+		.catch(null);
+
+		expect(s.apiCalls).toEqual(calls+1);
+	});
+
+	it('should reset API calls', function() {
+		s.apiCalls = 55555;
+		s.resetAPILimit();
+		
+		expect(s.apiCalls).toEqual(0);
+	});
 
 });
