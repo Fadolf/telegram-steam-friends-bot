@@ -79,7 +79,7 @@ describe("Steam",function(){
 		//This is necessary for testing asynchronous functions
 		it("should get player friends", function(done){
 			var steamID = "76561197960435530",
-					friendCount = 298; //At the moment of testing
+					friendCount = 301; //At the moment of testing
 
 			var testFriendCount = function(friendsResponse)
 			{

@@ -16,6 +16,41 @@ function getPersonaState(stateIndex)
 }
 
 
+function comparatorOnlineFirst(a,b)
+{
+  if(a.gameextrainfo && a.gameextrainfo!=undefined)
+  {
+    if(b.gameextrainfo && b.gameextrainfo!=undefined)
+      return a.personaname.localeCompare(b.personaname);
+
+    else
+      return -1;
+  }
+
+  else if(b.gameextrainfo && b.gameextrainfo!=undefined){
+    if(a.gameextrainfo && a.gameextrainfo!=undefined)
+      return b.personaname.localeCompare(a.personaname);
+
+    else
+      return 1;
+  }
+
+  else
+     return a.personaname.localeCompare(b.personaname);
+}
+
+
+function sortFriends(collection, comparator)
+{
+  var sorted = collection.sort(comparator);
+
+  for (var i = 0; i < sorted.length; i++) {
+    console.log(sorted[i].personaname + ' ' + sorted[i].gameextrainfo);
+  }
+
+  return sorted;
+}
+
 
 let commands = 
 [
@@ -81,13 +116,16 @@ let commands =
             {
               message+= '*Your friends online*\n';
             
-              friends.forEach(f => {
+              var sortedFriends = sortFriends(friends, comparatorOnlineFirst);
+
+              sortedFriends.forEach(f => {
                 let state=getPersonaState(f.personastate);
                 let game= f.gameextrainfo || '';
                 message+='`' + f.personaname + '`    (' + state + ')' + ' _' + game + '_\n';
               });
             }
-            telegram.sendMessage(msg.from.id, message, {parse_mode: 'Markdown', reply_to_message_id: msg.message_id});
+            telegram.sendMessage(msg.from.id, message, {parse_mode: 'Markdown', 
+              reply_to_message_id: msg.message_id});
           });
         }
       });
